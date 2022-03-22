@@ -1,6 +1,5 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
-# from pydantic.types import conint
 
 # User Schema
 class UserCreate(BaseModel):
@@ -22,7 +21,6 @@ class PostBase(BaseModel):
     content: str
     published: bool = True
 
-
 class PostCreate(PostBase):
     pass
 
@@ -31,7 +29,7 @@ class Post(PostBase):
     created_at: datetime
     owner_id: int
     owner: UserResponse
-
+    
     class Config:
         orm_mode = True
 
@@ -47,7 +45,6 @@ class PostOut(BaseModel):
 class Vote(BaseModel):
     post_id: int
     like: bool
-    # dir : conint(ge-0,le=1) # less than or equal to
 
 
 # Authentication Schema

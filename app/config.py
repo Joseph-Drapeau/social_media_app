@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     postgres_password: str
     postgres_db: str
     secret_key: str
-    algorithm: str
+    hashing_algorithm: str
     access_token_expire_minutes: int
 
     class Config:

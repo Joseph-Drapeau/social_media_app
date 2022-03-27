@@ -1,7 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
-# User Schema
+# User Schemas
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
@@ -15,7 +15,7 @@ class UserResponse(BaseModel):
         orm_mode = True
 
 
-# Post Schema
+# Post Schemas
 class PostBase(BaseModel):
     title: str
     content: str
@@ -47,7 +47,7 @@ class Vote(BaseModel):
     like: bool
 
 
-# Authentication Schema
+# Authentication Schemas
 class UserLogin(BaseModel):
     email: EmailStr
     password: str

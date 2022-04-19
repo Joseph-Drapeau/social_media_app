@@ -3,3 +3,4 @@ app/main2.py
 venv/
 dev.env
 fastapi.code-workspace
+docker-compose.yaml

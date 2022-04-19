@@ -9,7 +9,7 @@ from app.config import settings
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/login')
 
 SECRET_KEY = settings.secret_key
-HASHING_ALGORITHM = settings.hasing_algorithm
+HASHING_ALGORITHM = settings.hashing_algorithm
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 def create_access_token(data: dict):

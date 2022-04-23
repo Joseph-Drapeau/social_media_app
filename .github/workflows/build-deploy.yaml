@@ -12,9 +12,9 @@ jobs:
       POSTGRES_USER: ${{secrets.POSTGRES_USER}}
       POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
       POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-      SECRET_KEY: ${{secrets.SECRET_KEY:}}
-      HASHING_ALGORITHM: ${{secrets.HASHING_ALGORITHM:}}
-      ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES:}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      HASHING_ALGORITHM: ${{secrets.HASHING_ALGORITHM}}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
     
     services:
       postgres:

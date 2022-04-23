@@ -15,12 +15,12 @@ def vote(vote: schemas.Vote, db: Session = Depends(get_db), authenticated_user =
     post = db.query(
                 models.Post
             ).filter(
-                models.Post.post_id == vote.post_id
+                models.Post.id == vote.post_id
             ).first()
     if not post:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, 
-            detail=f"Post with id: {vote.post_id} does not exist"
+            detail=f"Post with id: {vote.post_id} does not exist"   
         )
     vote_query = db.query(
                 models.Vote
@@ -45,7 +45,7 @@ def vote(vote: schemas.Vote, db: Session = Depends(get_db), authenticated_user =
         
         return {"message": "successfully added vote"} 
     
-    else:
+    else: # Deleting a "like"
         if not found_vote:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, 

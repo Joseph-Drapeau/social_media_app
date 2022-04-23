@@ -4,3 +4,4 @@ venv/
 dev.env
 fastapi.code-workspace
 docker-compose.yaml
+docker-compose-prod.yaml

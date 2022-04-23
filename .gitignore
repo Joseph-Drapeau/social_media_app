@@ -2,6 +2,6 @@ __pycache__
 app/main2.py
 venv/
 dev.env
+.env
 fastapi.code-workspace
-docker-compose.yaml
-docker-compose-prod.yaml
+.dockerignore

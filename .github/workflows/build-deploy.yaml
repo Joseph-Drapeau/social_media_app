@@ -15,7 +15,7 @@ jobs:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       HASHING_ALGORITHM: ${{secrets.HASHING_ALGORITHM}}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
-    
+
 
     services:
       postgres:
@@ -48,4 +48,46 @@ jobs:
         run: |
           pip install pytest
           pytest
-       
+      
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${secrets.REPO_NAME}:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+
+  deploy:
+    environment:
+      name: deploy
+    runs-on: ubuntu-20.04
+    needs: [build]
+    steps:
+      - name: pulling git repo
+        uses: actions/checkout@v2      
+      - name: deploy to ubuntu server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.POSTGRES_HOSTNAME:}}
+          username: ${{secrets.POSTGRES_USER:}}
+          password: ${{secrets.POSTGRES_PASSWORD:}}
+          script: |
+            cd app/src
+            git pull
+            echo ${{secrets.POSTGRES_PASSWORD:}} | sudo -S systemctl restart api

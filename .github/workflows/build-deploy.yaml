@@ -84,10 +84,10 @@ jobs:
       - name: deploy to ubuntu server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{secrets.POSTGRES_HOSTNAME:}}
-          username: ${{secrets.POSTGRES_USER:}}
-          password: ${{secrets.POSTGRES_PASSWORD:}}
+          host: ${{secrets.POSTGRES_HOSTNAME}}
+          username: ${{secrets.POSTGRES_USER}}
+          password: ${{secrets.POSTGRES_PASSWORD}}
           script: |
             cd app/src
             git pull
-            echo ${{secrets.POSTGRES_PASSWORD:}} | sudo -S systemctl restart api
+            echo ${{secrets.POSTGRES_PASSWORD}} | sudo -S systemctl restart api
